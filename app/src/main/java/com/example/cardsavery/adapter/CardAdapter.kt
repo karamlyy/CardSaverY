@@ -42,7 +42,10 @@ class CardAdapter : RecyclerView.Adapter<CardAdapter.ViewHolder>(){
             binding.apply {
                 //Set text
                 tvTitle.text = item.cardTitle
-                tvDesc.text= item.cardDesc
+                tvHolder.text= item.cardHolder
+                tvCardNumber.text = item.cardNumber.toString()
+                tvExpiredDate.text = item.cardDate
+                tvCvv.text = item.cardCVV.toString()
 
                 root.setOnClickListener {
                     val intent=Intent(context,UpdateCardActivity::class.java)

@@ -23,7 +23,10 @@ class UpdateCardActivity : AppCompatActivity() {
     private lateinit var cardEntity: CardEntity
     private var cardId = 0
     private var defaultTitle = ""
-    private var defaultDesc = ""
+    private var defaultHolder = ""
+    private var defaultNumber = ""
+    private var defaultDate = ""
+    private var defaultCVV = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,23 +38,33 @@ class UpdateCardActivity : AppCompatActivity() {
         }
 
         binding.apply {
-            defaultTitle=cardDB.doa().getCard(cardId).cardTitle
-            defaultDesc=cardDB.doa().getCard(cardId).cardDesc
+            defaultTitle = cardDB.doa().getCard(cardId).cardTitle
+            defaultHolder = cardDB.doa().getCard(cardId).cardHolder
+            defaultNumber = cardDB.doa().getCard(cardId).cardNumber
+            defaultDate = cardDB.doa().getCard(cardId).cardDate
+            defaultCVV = cardDB.doa().getCard(cardId).cardCVV
 
             edtTitle.setText(defaultTitle)
-            edtDesc.setText(defaultDesc)
+            edtHolder.setText(defaultHolder)
+            edtNumber.setText(defaultNumber)
+            edtDate.setText(defaultDate)
+            edtCvv.setText(defaultCVV)
 
             btnDelete.setOnClickListener {
-                cardEntity= CardEntity(cardId,defaultTitle,defaultDesc)
+                cardEntity= CardEntity(cardId,defaultTitle,defaultHolder,defaultNumber,defaultDate,defaultCVV)
                 cardDB.doa().deleteCard(cardEntity)
                 finish()
             }
 
             btnSave.setOnClickListener {
                 val title = edtTitle.text.toString()
-                val desc=edtDesc.text.toString()
-                if (title.isNotEmpty() || desc.isNotEmpty()){
-                    cardEntity= CardEntity(cardId,title,desc)
+                val holder = edtHolder.text.toString()
+                val number = edtNumber.text.toString()
+                val date = edtDate.text.toString()
+                val cvv = edtCvv.text.toString()
+
+                if (title.isNotEmpty() && holder.isNotEmpty() && number.isNotEmpty() && date.isNotEmpty() && cvv.isNotEmpty()){
+                    cardEntity= CardEntity(cardId,title,holder,number,date,cvv)
                     cardDB.doa().updateCard(cardEntity)
                     finish()
                 }

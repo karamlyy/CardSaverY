@@ -31,12 +31,15 @@ class AddCardActivity : AppCompatActivity() {
         binding.apply {
             btnSave.setOnClickListener {
                 val title = edtTitle.text.toString()
-                val desc = edtDesc.text.toString()
+                val holder = edtHolder.text.toString()
+                val number = edtNumber.text.toString()
+                val date = edtDate.text.toString()
+                val cvv = edtCvv.text.toString()
 
                 /* if title and description of a card are not empty, then data can be inserted and
                 card can be saved in the database */
-                if (title.isNotEmpty() || desc.isNotEmpty()){
-                    cardEntity= CardEntity(0,title,desc)
+                if (title.isNotEmpty() && holder.isNotEmpty() && number.isNotEmpty() && date.isNotEmpty() && cvv.isNotEmpty() ){
+                    cardEntity= CardEntity(0,title,holder, number, date, cvv)
                     cardDB.doa().insertCard(cardEntity)
                     finish()
                 }

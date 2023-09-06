@@ -11,7 +11,13 @@ data class CardEntity(
     val cardId :Int,
     @ColumnInfo(name = "card_title")
     val cardTitle:String,
-    @ColumnInfo(name = "card_desc")
-    val cardDesc : String
+    @ColumnInfo(name = "card_holder")
+    val cardHolder : String,
+    @ColumnInfo(name = "card_number")
+    val cardNumber : String,
+    @ColumnInfo(name = "card_date")
+    val cardDate : String,
+    @ColumnInfo(name = "card_cvv")
+    val cardCVV : String
 )
 
