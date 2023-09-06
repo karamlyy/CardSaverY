@@ -18,6 +18,8 @@ data class CardEntity(
     @ColumnInfo(name = "card_date")
     val cardDate : String,
     @ColumnInfo(name = "card_cvv")
-    val cardCVV : String
+    val cardCVV : String,
+    @ColumnInfo(name = "card_type")
+    val cardType: String
 )
 

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cardsavery.R
 import com.example.cardsavery.databinding.ItemCardBinding
 import com.example.cardsavery.db.CardEntity
 import com.example.cardsavery.ui.UpdateCardActivity
@@ -46,6 +47,13 @@ class CardAdapter : RecyclerView.Adapter<CardAdapter.ViewHolder>(){
                 tvCardNumber.text = item.cardNumber.toString()
                 tvExpiredDate.text = item.cardDate
                 tvCvv.text = item.cardCVV.toString()
+
+                // Load image based on card type
+                if (item.cardType == "Visa") {
+                    imageViewType.setImageResource(R.drawable.visa)
+                } else if (item.cardType == "MasterCard") {
+                    imageViewType.setImageResource(R.drawable.mastercard)
+                }
 
                 root.setOnClickListener {
                     val intent=Intent(context,UpdateCardActivity::class.java)

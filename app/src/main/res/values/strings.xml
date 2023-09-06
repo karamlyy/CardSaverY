@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Card SaverY</string>
+    <string-array name="card_types">
+        <item>Visa</item>
+        <item>MasterCard</item>
+    </string-array>
 </resources>

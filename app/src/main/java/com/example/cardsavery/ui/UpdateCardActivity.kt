@@ -9,6 +9,8 @@ import com.example.cardsavery.db.CardEntity
 import com.example.cardsavery.utils.Constants.BUNDLE_CARD_ID
 import com.example.cardsavery.utils.Constants.CARD_DATABASE
 import com.google.android.material.snackbar.Snackbar
+import android.widget.ArrayAdapter
+import com.example.cardsavery.R
 
 class UpdateCardActivity : AppCompatActivity() {
 
@@ -27,6 +29,7 @@ class UpdateCardActivity : AppCompatActivity() {
     private var defaultNumber = ""
     private var defaultDate = ""
     private var defaultCVV = ""
+    private var defaultCardType = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,11 +41,17 @@ class UpdateCardActivity : AppCompatActivity() {
         }
 
         binding.apply {
+            val cardTypes = resources.getStringArray(R.array.card_types)
+            val adapter = ArrayAdapter(this@UpdateCardActivity, android.R.layout.simple_spinner_item, cardTypes)
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            typeSpinner.adapter = adapter
+
             defaultTitle = cardDB.doa().getCard(cardId).cardTitle
             defaultHolder = cardDB.doa().getCard(cardId).cardHolder
             defaultNumber = cardDB.doa().getCard(cardId).cardNumber
             defaultDate = cardDB.doa().getCard(cardId).cardDate
             defaultCVV = cardDB.doa().getCard(cardId).cardCVV
+            defaultCardType = cardDB.doa().getCard(cardId).cardType
 
             edtTitle.setText(defaultTitle)
             edtHolder.setText(defaultHolder)
@@ -50,8 +59,12 @@ class UpdateCardActivity : AppCompatActivity() {
             edtDate.setText(defaultDate)
             edtCvv.setText(defaultCVV)
 
+            // Set the selected card type in the Spinner
+            val cardTypePosition = adapter.getPosition(defaultCardType)
+            typeSpinner.setSelection(cardTypePosition)
+
             btnDelete.setOnClickListener {
-                cardEntity= CardEntity(cardId,defaultTitle,defaultHolder,defaultNumber,defaultDate,defaultCVV)
+                cardEntity = CardEntity(cardId, defaultTitle, defaultHolder, defaultNumber, defaultDate, defaultCVV, defaultCardType)
                 cardDB.doa().deleteCard(cardEntity)
                 finish()
             }
@@ -62,17 +75,16 @@ class UpdateCardActivity : AppCompatActivity() {
                 val number = edtNumber.text.toString()
                 val date = edtDate.text.toString()
                 val cvv = edtCvv.text.toString()
+                val selectedCardType = typeSpinner.selectedItem.toString()
 
-                if (title.isNotEmpty() && holder.isNotEmpty() && number.isNotEmpty() && date.isNotEmpty() && cvv.isNotEmpty()){
-                    cardEntity= CardEntity(cardId,title,holder,number,date,cvv)
+                if (title.isNotEmpty() && holder.isNotEmpty() && number.isNotEmpty() && date.isNotEmpty() && cvv.isNotEmpty()) {
+                    cardEntity = CardEntity(cardId, title, holder, number, date, cvv, selectedCardType)
                     cardDB.doa().updateCard(cardEntity)
                     finish()
-                }
-                else{
-                    Snackbar.make(it,"Fields cannot be Empty", Snackbar.LENGTH_LONG).show()
+                } else {
+                    Snackbar.make(it, "Fields cannot be Empty", Snackbar.LENGTH_LONG).show()
                 }
             }
         }
-
     }
 }
