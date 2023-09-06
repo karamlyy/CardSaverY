@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    // In future, Use LiveData in place of this function
     override fun onResume() {
         super.onResume()
         checkItem()

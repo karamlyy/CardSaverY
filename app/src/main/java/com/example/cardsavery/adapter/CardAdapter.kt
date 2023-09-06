@@ -23,6 +23,7 @@ class CardAdapter : RecyclerView.Adapter<CardAdapter.ViewHolder>(){
         val inflater = LayoutInflater.from(parent.context)
         binding = ItemCardBinding.inflate(inflater, parent, false)
         context = parent.context
+
         return ViewHolder()
     }
 
